@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chinese New Year</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: 
+        radial-gradient(ellipse at center, rgba(255,255,255,0.15), transparent),
+        linear-gradient(45deg, #8B0000, #450000);
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+    }
+
+    .container {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 0 200px rgba(255, 215, 0, 0.15);
+      overflow: hidden; 
+    }
+
+    .golden-text {
+      font-size: 8vw;
+      text-align: center;
+      font-weight: bold;
+      line-height: 1.2;
+      background: linear-gradient(90deg, #FFD700, #D4AF37, #FFD700);
+      background-size: 200%;
+      background-clip: text;
+      color: transparent;
+      animation: shimmer 4s linear infinite;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      z-index: 2;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .lantern {
+      position: absolute;
+      width: 120px;  
+      height: 180px; 
+      background: linear-gradient(45deg, #FF0000, #CC0000);
+      border-radius: 40px;
+      animation: swing 3s ease-in-out infinite, floatLantern 15s linear infinite;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+      min-width: 60px; 
+      min-height: 90px;
+    }
+    .lantern.left {
+      left: 20%;
+      top: 20%;
+    }
+    .lantern.right {
+      right: 20%;
+      top: 20%;
+    }
+    .lantern::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 15px;
+      background: #FFD700;
+      border-radius: 10px 10px 0 0;
+    }
+    .lantern::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      width: 40px;
+      height: 20px;
+      background: #FFD700;
+      transform: translateX(-50%);
+      border-radius: 0 0 20px 20px;
+    }
+
+    .lantern-flame {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 15px;
+      height: 25px;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 0, 0.8), rgba(255, 0, 0, 0.3));
+      border-radius: 50% 50% 0 0;
+      animation: flicker 0.5s infinite alternate;
+      z-index: 1;
+    }
+
+    @keyframes flicker {
+      0% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(-50%) scale(1.2);
+        opacity: 0.7;
+      }
+    }
+    @keyframes swing {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+    @keyframes floatLantern {
+      0% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-30px) rotate(5deg); }
+      100% { transform: translateY(0) rotate(-5deg); }
+    }
+
+    .dragon-mascot {
+      position: absolute;
+      bottom: 10%;
+      width: 200px;
+      opacity: 0.9;
+      animation: floatDragon 3s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    @keyframes floatDragon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .sparkles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .sparkle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: rgba(255, 215, 0, 0.8);
+      border-radius: 50%;
+      animation: sparkle 1s ease-out infinite;
+    }
+    @keyframes sparkle {
+      0%   { transform: scale(0);   opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    .blossoms {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .blossom {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: rgba(255, 255, 255, 0.3);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%,50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
+    .chinese-greeting {
+      font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+      font-size: 8vw;
+      text-align: center;
+      margin: 20px;
+      background: linear-gradient(45deg, #FFD700, #C10B0B);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 15px rgba(193, 11, 11, 0.5);
+      animation: glow 2s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 5px #FFD700); }
+      50%      { filter: drop-shadow(0 0 20px #FF4500); }
+    }
+
+ 
+    @media (max-width: 420px) {
+      .golden-text {
+        font-size: 10vw;  
+      }
+      .chinese-greeting {
+        font-size: 10vw;
+      }
+ 
+      .lantern {
+        width: 15vw; 
+        height: 22vw;
+      }
+    }
+
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="lantern left">
+      <div class="lantern-flame"></div>
+    </div>
+    <div class="lantern right">
+      <div class="lantern-flame"></div>
+    </div>
+
+    <div>
+      <h1 class="golden-text">
+        新年快乐<br>2025
+      </h1>
+    </div>
+
+    <div class="sparkles"></div>
+    <div class="blossoms"></div>
+  </div>
+
+  <script>
+    const  createSparkles = () => {
+      const container = document.querySelector('.sparkles');
+      for (let i = 0; i < 50; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = `${Math.random() * 100}%`;
+        sparkle.style.top = `${Math.random() * 100}%`;
+        sparkle.style.animationDelay = `${Math.random() * 1}s`;
+        container.appendChild(sparkle);
+      }
+    }
+
+    const createBlossoms = () => {
+      const container = document.querySelector('.blossoms');
+      for (let i = 0; i < 30; i++) {
+        const blossom = document.createElement('div');
+        blossom.className = 'blossom';
+        blossom.style.left = `${Math.random() * 100}%`;
+        const fallDuration = 5 + Math.random() * 10;
+        blossom.style.animation = `fall ${fallDuration}s linear infinite`;
+        blossom.style.animationDelay = `${Math.random() * 5}s`;
+        container.appendChild(blossom);
+      }
+    }
+
+    window.addEventListener('load', () => {
+      createSparkles();
+      createBlossoms();
+    });
+  </script>
+
+</body>
+</html>
